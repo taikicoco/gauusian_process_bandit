@@ -12,7 +12,7 @@ class RBF:
             x1 = np.array([[0,0]])
         return self._alpha * np.exp(-np.sum((x1 - x2)**2, axis=-1) / self._beta)
 
-class GP:
+class GP2D:
     def __init__(self, mu_y, sigma, kernel):
         self._mu_y = mu_y
         self._sigma = sigma ** 2
