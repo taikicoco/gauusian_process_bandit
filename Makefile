@@ -6,6 +6,4 @@ build:
 	docker-compose build 
 bash:
 	docker-compose exec python3 bash
-	
-clear:
-	docker-compose rm
+
