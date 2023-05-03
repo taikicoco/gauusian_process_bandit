@@ -2,6 +2,11 @@ import numpy as np
 import scipy.stats as st
 
 
+# 1. インスタンス化するときにalphaとbetaを引数に取る
+# 2. インスタンス化したものをカーネルとして扱う
+# 3. カーネルは2つの引数を取る
+# 4. 2つの引数の差の2乗をbetaで割ったものを負にしたものをalphaで累乗したものを返す
+# 5. 3~4を繰り返す
 class RBF:
     def __init__(self, alpha, beta):
         self._alpha = alpha ** 2
@@ -10,10 +15,15 @@ class RBF:
     def __call__(self, x1, x2):
         return self._alpha * np.exp(-np.square(x1 - x2) / self._beta)
 
+# 1. インスタンス化するときにmu_yとnoiseとkernelを引数に取る
+# 2. インスタンス化したものをガウス過程として扱う
+# 3. ガウス過程は2つの引数を取る
+# 4. 2つの引数の差の2乗をbetaで割ったものを負にしたものをalphaで累乗したものを返す
+# 5. 3~4を繰り返す
 class GP:
-    def __init__(self, mu_y, sigma, kernel):
+    def __init__(self, mu_y, noise, kernel):
         self._mu_y = mu_y
-        self._sigma = sigma ** 2
+        self._noise = noise ** 2
         self._kernel = kernel
         self._x = np.zeros(0)
         self._y = np.zeros(0)
@@ -32,10 +42,10 @@ class GP:
         self._k[n, n] = k0
         self._x = np.append(self._x, x)
         self._y = np.append(self._y, y)
-        self._invk = np.linalg.inv(self._k + self._sigma * np.eye(n + 1))
+        self._invk = np.linalg.inv(self._k + self._noise * np.eye(n + 1))
 
-    def dist(self, x):
-        k0 = self._kernel(x, x) + self._sigma
+    def predict(self, x):
+        k0 = self._kernel(x, x) + self._noise
         k1 = self._kernel(x, self._x[:, None])
         dy = self._y - self._mu_y
         mean = self._mu_y + k1.T @ self._invk @ dy
