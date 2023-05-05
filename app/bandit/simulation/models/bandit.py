@@ -2,34 +2,34 @@ import numpy as np
 import scipy.stats as st
 
 class Bandit:
-    def __init__(self, bandit_trial = 100, bandit_sample = 100):
+    def __init__(self, play = 100, sample = 100):
         self.train = []
-        self.pred = []
-        self.bandit_trial = bandit_trial
-        self.bandit_sample = bandit_sample
+        self.reward = []
+        self.play = play
+        self.sample = sample
 
     def gp_ucb(self, train_func, model) -> list:
-        for _ in range(self.bandit_trial):
-            train_data = np.sort(st.uniform().rvs(self.bandit_sample))
-            pred_sampled = model.predict(train_data)
-            train = train_data[np.argmax(pred_sampled.isf(0.05))]
-            pred = train_func(train)
+        for _ in range(self.play):
+            train_data = np.sort(st.uniform().rvs(self.sample))
+            reward_sampled = model.predict(train_data)
+            train = train_data[np.argmax(reward_sampled.isf(0.05))]
+            reward = train_func(train)
             
-            model.append(self.train, self.pred)
+            model.append(train, reward)
             self.train.append(train)
-            self.pred.append(pred)
-        return self.train, self.pred
+            self.reward.append(reward)
+        return self.train, self.reward
 
     def gp_ts(self, train_func, model) -> list:
-        for _ in range(self.bandit_trial):
-            train_data = np.sort(st.uniform().rvs(self.bandit_sample))
-            pred_sampled = model.predict(train_data)
-            train = train_data[np.argmax(pred_sampled.isf(0.05))]
-            p = pred_sampled.rvs()
+        for _ in range(self.play):
+            train_data = np.sort(st.uniform().rvs(self.sample))
+            reward_sampled = model.predict(train_data)
+            train = train_data[np.argmax(reward_sampled.isf(0.05))]
+            p = reward_sampled.rvs()
             train = train_data[np.argmax(p)]
-            pred = train_func(train)
+            reward = train_func(train)
             
-            model.append(self.train, self.pred)
+            model.append(train, reward)
             self.train.append(train)
-            self.pred.append(pred)
-        return self.train, self.pred
+            self.reward.append(reward)
+        return self.train, self.reward
