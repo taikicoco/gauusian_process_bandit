@@ -1,12 +1,6 @@
 import numpy as np
 import scipy.stats as st
 
-
-# 1. インスタンス化するときにalphaとbetaを引数に取る
-# 2. インスタンス化したものをカーネルとして扱う
-# 3. カーネルは2つの引数を取る
-# 4. 2つの引数の差の2乗をbetaで割ったものを負にしたものをalphaで累乗したものを返す
-# 5. 3~4を繰り返す
 class RBF:
     def __init__(self, alpha, beta):
         self._alpha = alpha ** 2
@@ -15,11 +9,6 @@ class RBF:
     def __call__(self, x1, x2):
         return self._alpha * np.exp(-np.square(x1 - x2) / self._beta)
 
-# 1. インスタンス化するときにmu_yとnoiseとkernelを引数に取る
-# 2. インスタンス化したものをガウス過程として扱う
-# 3. ガウス過程は2つの引数を取る
-# 4. 2つの引数の差の2乗をbetaで割ったものを負にしたものをalphaで累乗したものを返す
-# 5. 3~4を繰り返す
 class GP:
     def __init__(self, mu_y, noise, kernel):
         self._mu_y = mu_y
