@@ -30,7 +30,7 @@ class GP:
         self._k = np.zeros((0, 0))
         self._invk = np.zeros((0, 0))
     
-    def append(self, x, y):
+    def append(self, x, y) -> None:
         n = self._y.size
         k0 = self._kernel(x, x)
         k1 = self._kernel(self._x, x)
@@ -44,7 +44,7 @@ class GP:
         self._y = np.append(self._y, y)
         self._invk = np.linalg.inv(self._k + self._noise * np.eye(n + 1))
 
-    def predict(self, x):
+    def predict(self, x) -> st.norm():
         k0 = self._kernel(x, x) + self._noise
         k1 = self._kernel(x, self._x[:, None])
         dy = self._y - self._mu_y

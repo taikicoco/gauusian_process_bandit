@@ -8,7 +8,7 @@ class Bandit:
         self.play = play
         self.sample = sample
 
-    def gp_ucb(self, train_func, model) -> list:
+    def gp_ucb(self, train_func, model) -> tuple(list, list):
         for _ in range(self.play):
             train_data = np.sort(st.uniform().rvs(self.sample))
             reward_sampled = model.predict(train_data)
@@ -20,7 +20,7 @@ class Bandit:
             self.reward.append(reward)
         return self.train, self.reward
 
-    def gp_ts(self, train_func, model) -> list:
+    def gp_ts(self, train_func, model) -> tuple(list, list):
         for _ in range(self.play):
             train_data = np.sort(st.uniform().rvs(self.sample))
             reward_sampled = model.predict(train_data)
