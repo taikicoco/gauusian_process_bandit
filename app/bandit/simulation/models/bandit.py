@@ -34,6 +34,16 @@ class Bandit:
             self.reward.append(reward)
         return self.train, self.reward
     
+    def random(self, train_func, model):
+        for _ in range(self._n_play):
+            train = np.random.rand(1)
+            reward = train_func(train)
+            
+            model.append(train, reward)
+            self.train.append(train)
+            self.reward.append(reward)
+        return self.train, self.reward
+    
     # play毎にrewardとtrainを返す
     def gp_ucb_e(self, train_func, model):
         train_data = np.sort(st.uniform().rvs(self._n_sample))
