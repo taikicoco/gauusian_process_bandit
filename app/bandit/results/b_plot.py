@@ -21,3 +21,17 @@ def gp(model, sample, xout, yout, titel = ""):
     plt.grid()
     plt.legend()
     plt.show()
+
+def plot_action(xout, yout, train_area, titel = ""):
+    n_trial = len(yout)
+    plt.figure(figsize=(5,3))
+    plt.scatter(range(len(xout)),xout, s = 5, c=yout)
+    for t in train_area:
+        plt.axhline(t['mean'],color='red')
+    plt.xlim(0,n_trial)
+    plt.ylim(0,1)
+    plt.grid()
+    # plt.title(titel)
+    plt.xlabel('Trial')
+    plt.ylabel('select arm')
+    plt.show()
