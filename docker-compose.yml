@@ -7,11 +7,11 @@ services:
       dockerfile: Dockerfile
     container_name: python3
     environment: 
-      -  PYTHONPATH=/app
-    working_dir: /app
+      -  PYTHONPATH=/work
+    working_dir: /work
     tty: true
     volumes:
-      - ./app:/app
+      - ./work:/work
   jupyterlab:
     build: 
       context: ./docker
@@ -20,10 +20,10 @@ services:
     container_name: g_bandit
     environment:
       - PYTHONDONTWRITEBYTECODE=1
-    working_dir: /app
+    working_dir: /work
     volumes:
-      - ./app:/app
+      - ./work:/work
     ports:
       - "8888:8888"
     command:
-      jupyter-lab --ip 0.0.0.0 --allow-root -b localhost --NotebookApp.token=''
+      jupyter-lab --ip 0.0.0.0 --allow-root -b localhost --Notebookwork.token=''
