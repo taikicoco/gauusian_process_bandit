@@ -29,8 +29,7 @@ rbf_alpha_list  = [i/100 for i in range(5, 35, 5)]
 rbf_beta_list   = [i/100 for i in range(5, 35, 5)] 
 ####################
 
-def main_sim(t):
-    T = t
+def main_sim(T):
     for _ in range(T):
         play_bandit_gp_ts()
 
