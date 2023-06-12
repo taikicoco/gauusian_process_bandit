@@ -1,13 +1,12 @@
 import numpy as np
 import scipy.stats as st
-import matplotlib.pyplot as plt
 
 class RBF:
     def __init__(self, alpha, beta):
         self._alpha = alpha ** 2
         self._beta = 2 * beta ** 2
 
-    def __call__(self, x1, x2, is_k0 = False): 
+    def __call__(self, x1, x2): 
         if x1.shape == (0,2):
             x1 = np.array([[0,0]])
         return self._alpha * np.exp(-np.sum((x1 - x2)**2, axis=-1) / self._beta)

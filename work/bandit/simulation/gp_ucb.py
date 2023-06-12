@@ -1,7 +1,5 @@
 import os
 import numpy as np
-import matplotlib.pyplot as plt
-import scipy.stats as st
 import pandas as pd
 
 import sys
@@ -22,11 +20,15 @@ n_sample = 100
 func_sigma_list = [0.1, 0.3]
 func_max_list   = [0.2, 0.6]
 
-gp_noise_list   = [i/100 for i in range(5, 35, 5)]
-gp_me_list      = [0.5]
+log_space_array = np.geomspace(0.01, 0.5, 6)
+log_space_array = list(np.round(log_space_array, decimals=2))
+# log_space_array = [0.01 0.02 0.05 0.1  0.23 0.5 ]
 
-rbf_alpha_list  = [i/100 for i in range(5, 35, 5)]
-rbf_beta_list   = [i/100 for i in range(5, 35, 5)] 
+gp_me_list      = [0, 0.5, 1.0]
+gp_noise_list   = log_space_array
+
+rbf_alpha_list  = log_space_array
+rbf_beta_list   = log_space_array
 ####################
 
 def main_sim(T):
@@ -101,4 +103,6 @@ def play_bandit_gp_ucb():
 
     print(f'finished seed is {seed}')
 
-main_sim(1)
+if __name__ == '__main__':
+    traial_number = 2
+    main_sim(traial_number)
