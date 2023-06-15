@@ -2,15 +2,10 @@ import os
 import numpy as np
 import pandas as pd
 
-import sys
-sys.path.append('./models') 
-from gaussian import GP
-from gaussian import RBF
-from bandit import Bandit
-
-sys.path.append('./train_data') 
-from train_func import TrueFunc
-
+from models.gaussian import GP
+from models.gaussian import RBF
+from models.bandit import Bandit
+from train_data.train_func import TrueFunc
 
 # シミュレーションのパラメータ設定
 ####################
