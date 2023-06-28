@@ -98,6 +98,9 @@ def play_bandit_gp_ts():
 
     print(f'finished seed is {seed}')
 
-if __name__ == '__main__':
-    traial_number = 2
-    main_sim(traial_number)
+def main_sim(T):
+    for _ in range(T):
+        play_bandit_gp_ts()
+
+traial_number = 1
+main_sim(traial_number)
