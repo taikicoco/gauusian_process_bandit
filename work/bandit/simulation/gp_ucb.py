@@ -66,6 +66,11 @@ def play_bandit_gp_ucb():
     for train_func_sigma in func_sigma_list:
         for train_func_max in func_max_list:
             for gp_noise in gp_noise_list:
+
+                print(f'gp_noise = {gp_noise}')
+                print(f'train_func_sigma = {train_func_sigma}')
+                print(f'train_func_max = {train_func_max}')
+                
                 for gp_me in gp_me_list:
                     for rbf_alpha in rbf_alpha_list:
                         for rbf_beta in rbf_beta_list:
