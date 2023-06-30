@@ -26,11 +26,6 @@ rbf_alpha_list  = log_space_array
 rbf_beta_list   = log_space_array
 ####################
 
-def main_sim(T):
-    for _ in range(T):
-        play_bandit_gp_ts()
-
-
 def get_max_seed_ts():
     try:
         d = pd.read_csv('../results/csv/gp_ts/gp_ts.csv')
@@ -48,8 +43,10 @@ def play_bandit_gp_ts():
     
     data  = []
     data2 = []
-    seed     = get_max_seed_ts() + 1
+    seed  = get_max_seed_ts() + 1
     
+    csv_name = "gp_ts.csv"
+    csv_name2 = "gp_ts_2.csv"
     csv_path = '../results/csv/gp_ts/gp_ts.csv'
     csv_path2 = '../results/csv/gp_ts/gp_ts_2.csv'
     
@@ -70,7 +67,7 @@ def play_bandit_gp_ts():
                 print(f'gp_noise = {gp_noise}')
                 print(f'train_func_sigma = {train_func_sigma}')
                 print(f'train_func_max = {train_func_max}')
-                
+
                 for gp_me in gp_me_list:
                     for rbf_alpha in rbf_alpha_list:
                         for rbf_beta in rbf_beta_list:
@@ -90,22 +87,16 @@ def play_bandit_gp_ts():
                             
                             
     df = pd.DataFrame(data, columns=column)
-    df2 = pd.DataFrame(data2, columns=column2)
-    
     df = pd.concat([_df, df], ignore_index=True)
-    df2 = pd.concat([_df2, df2], ignore_index=True)
-    
-    csv_name = "gp_ts.csv"
-    csv_name2 = "gp_ts_2.csv"
-    
     df.to_csv(str(dir_path) + str(csv_name), index=False)
+
+    df2 = pd.DataFrame(data2, columns=column2)
+    df2 = pd.concat([_df2, df2], ignore_index=True)
     df2.to_csv(str(dir_path) + str(csv_name2), index=False)
 
     print(f'finished seed is {seed}')
 
-def main_sim(T):
-    for _ in range(T):
+if __name__ == '__main__':
+    traial_number = 1
+    for _ in range(traial_number):
         play_bandit_gp_ts()
-
-traial_number = 1
-main_sim(traial_number)
