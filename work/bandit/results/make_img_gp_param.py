@@ -31,10 +31,10 @@ def make_parameter_analysis(df, f_max, f_sigma, algorithm):
     param_combinations = [('noise', 'gp_me'), ('noise', 'alpha'), ('noise', 'beta'),
                             ('gp_me', 'alpha'), ('gp_me', 'beta'), ('alpha', 'beta')]
 
-    fig, axs = plt.subplots(2, 3, figsize=(15, 10))  # Changed from 1 row to 2 rows and 3 columns
+    fig, axs = plt.subplots(2, 3, figsize=(15, 10))
 
     for i, (x_col, y_col) in enumerate(param_combinations):
-        row, col = divmod(i, 3)  # Calculate row and column for subplot
+        row, col = divmod(i, 3)
         make_loss_contour_plot(fig, axs[row, col], df, x_col, y_col, lev, t_t_r, f_max, f_sigma)
 
     plt.tight_layout()
