@@ -4,3 +4,4 @@ matplotlib
 jupyterlab
 scipy
 seaborn
+python-dotenv

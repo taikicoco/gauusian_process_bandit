@@ -7,8 +7,6 @@ from models.gaussian import RBF
 from models.bandit import Bandit
 from train_data.train_func import TrueFunc
 
-import google_chat_notifier
-
 # Parameters
 PARAMS = {
     'n_play': 300,
@@ -77,7 +75,12 @@ def save_to_csv(algorithm, data, column_names, suffix=''):
     
     df.to_csv(df_path, index=False)
 
+import time
+import google_chat_notifier
 if __name__ == '__main__':
+    start_time = time.time()
+    google_chat_notifier.send_message_to_google_chat("Start Bandit simulation")
+
     algorithms = ['gp_ts', 'gp_ucb']
     column_names1 = ['f_sigma', 'f_max', 'noise', 'gp_me', 'alpha', 'beta', 'seed', 'play_time', 'select_arm', 'reward']
     column_names2 = ['f_sigma', 'f_max', 'noise', 'gp_me', 'alpha', 'beta', 'total_reward', 'seed']
@@ -91,4 +94,7 @@ if __name__ == '__main__':
             save_to_csv(algorithm, data2, column_names2, '_2')
             print(f'Finished Bandit algo =  {algorithm} seed =  {seed}')
 
-    google_chat_notifier.send_message_to_google_chat("Finished Bandit simulation")
+    end_time = time.time()
+    execution_time = end_time - start_time
+    google_chat_notifier.send_message_to_google_chat(f'Finished Bandit simulation: execution time = {execution_time}')
+

@@ -1,7 +1,10 @@
 import requests
 import json
+import os
+from dotenv import load_dotenv
 
-webhook_url = "https://chat.googleapis.com/v1/spaces/AAAAOtt3NVo/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=VCp_BIdrvxi7WfdkEKwhul3H51GofwBZX9c8hsh7smM"
+load_dotenv()
+webhook_url = os.getenv("WEBHOOK_URL")
 
 def send_message_to_google_chat(message):
     data = {"text": message}
