@@ -41,8 +41,10 @@ def make_parameter_analysis(df, f_max, f_sigma, algorithm):
 
     if algorithm == 'gp_ucb':
         plt.savefig(f"./img/gp-ucb_parameter_{f_max}_{f_sigma}.png")
+        print(f"Save: ./img/gp-ucb_parameter_{f_max}_{f_sigma}.png")
     elif algorithm == 'gp_ts':
         plt.savefig(f"./img/gp-ts_parameter_{f_max}_{f_sigma}.png")
+        print(f"Save: ./img/gp-ts_parameter_{f_max}_{f_sigma}.png")
 
 def save_parameter_analysis(df_gp_ts, f_max, f_sigma, algorithm):
     df = df_gp_ts[(df_gp_ts['f_max'] == f_max) & (df_gp_ts['f_sigma'] == f_sigma)]
@@ -53,18 +55,14 @@ if __name__ == '__main__':
     f_sigma_list = [0.1, 0.3]
     f_max_list   = [0.2, 0.6]
 
-    print("Start: make_gp_ucb_param.py")
     df_gp_ucb = pd.read_csv('./csv/gp_ucb/gp_ucb_2.csv')
     algorithm = 'gp_ucb'
     for f_sigma in f_sigma_list:
         for f_max in f_max_list:
             save_parameter_analysis(df_gp_ucb, f_max, f_sigma, algorithm)
-    print("End: make_gp_ucb_param.py")
 
-    print("Start: make_gp_ts_param.py")
     df_gp_ts = pd.read_csv('./csv/gp_ts/gp_ts_2.csv')
     algorithm = 'gp_ts'
     for f_sigma in f_sigma_list:
         for f_max in f_max_list:
             save_parameter_analysis(df_gp_ts, f_max, f_sigma, algorithm)
-    print("End: make_gp_ts_param.py")
