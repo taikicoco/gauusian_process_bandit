@@ -14,6 +14,8 @@ PARAMS = {
     'func_sigma_list': [0.1, 0.3],
     'func_max_list': [0.2, 0.6],
     'gp_me_list': [0, 0.5, 1.0],
+
+    # [0.01, 0.02, 0.03, 0.05, 0.09, 0.16, 0.29, 0.5]
     'gp_noise_list': np.round(np.geomspace(0.01, 0.5, 8), decimals=2).tolist(),
     'rbf_alpha_list': np.round(np.geomspace(0.01, 0.5, 8), decimals=2).tolist(),
     'rbf_beta_list': np.round(np.geomspace(0.01, 0.5, 8), decimals=2).tolist()
@@ -78,8 +80,6 @@ def save_to_csv(algorithm, data, column_names, suffix=''):
 import time
 import google_chat_notifier
 if __name__ == '__main__':
-    start_time = time.time()
-    google_chat_notifier.send_message_to_google_chat("Start Bandit simulation")
 
     algorithms = ['gp_ts', 'gp_ucb']
     column_names1 = ['f_sigma', 'f_max', 'noise', 'gp_me', 'alpha', 'beta', 'seed', 'play_time', 'select_arm', 'reward']
@@ -87,6 +87,9 @@ if __name__ == '__main__':
     
     Traial = 1
     for _ in range(Traial):
+        start_time = time.time()
+        google_chat_notifier.send_message_to_google_chat("Start Bandit simulation")
+
         for algorithm in algorithms:
             seed = get_max_seed(algorithm)
             data1, data2 = generate_data(seed, algorithm)
@@ -94,7 +97,7 @@ if __name__ == '__main__':
             save_to_csv(algorithm, data2, column_names2, '_2')
             print(f'Finished Bandit algo =  {algorithm} seed =  {seed}')
 
-    end_time = time.time()
-    execution_time = end_time - start_time
-    google_chat_notifier.send_message_to_google_chat(f'Finished Bandit simulation: execution time = {execution_time}')
+        end_time = time.time()
+        execution_time = end_time - start_time
+        google_chat_notifier.send_message_to_google_chat(f'Finished Bandit simulation: execution time = {execution_time}')
 
